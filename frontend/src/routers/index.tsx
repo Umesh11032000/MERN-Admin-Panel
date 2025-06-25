@@ -6,6 +6,8 @@ import type { RootState } from "@/store";
 import Register from "@/features/authentication/register/page";
 import Home from "@/features/admin/home/page";
 import Users from "@/features/admin/user/page";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const privateRoutes = [
   {
@@ -43,6 +45,18 @@ const publicRoutes = [
 ];
 
 export const RoutesApp = () => {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { success, error, isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {
+    if (success) {
+      toast.success(success);
+    }
+    if (error) {
+      toast.error(error);
+    }
+  }, [success, error]);
+
   return useRoutes(isAuthenticated ? privateRoutes : publicRoutes);
 };

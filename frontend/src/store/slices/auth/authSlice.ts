@@ -7,6 +7,7 @@ interface AuthState {
   token: string | null;
   loading: boolean;
   error: string | null;
+  success: string | null;
 }
 
 const initialState: AuthState = {
@@ -15,6 +16,7 @@ const initialState: AuthState = {
   token: localStorage.getItem("token"),
   loading: false,
   error: null,
+  success: null,
 };
 
 export const loginToSystem = createAsyncThunk(
@@ -56,7 +58,9 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.loading = false;
       state.error = null;
+      state.success = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
@@ -71,6 +75,7 @@ const authSlice = createSlice({
         state.token = action.payload.data.token;
         state.isAuthenticated = true;
         state.error = null;
+        state.success = "Welcome back!" + " " + action.payload.data.user.name;
         localStorage.setItem("token", action.payload.data.token);
         localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
@@ -88,6 +93,7 @@ const authSlice = createSlice({
         state.token = action.payload.data.token;
         state.isAuthenticated = true;
         state.error = null;
+        state.success = "Registration successful! Welcome " + action.payload.data.user.name;
         localStorage.setItem("token", action.payload.data.token);
         localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })

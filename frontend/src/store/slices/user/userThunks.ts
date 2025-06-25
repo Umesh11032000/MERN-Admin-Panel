@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "@/api/axios";
-import type { User } from "./userTypes";
 
 // FETCH ALL
 export const fetchUsers = createAsyncThunk(
@@ -8,7 +7,7 @@ export const fetchUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await API.post("/auth/users");
-      return response.data;
+      return response.data.data.users as User[];
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch users"
@@ -25,7 +24,9 @@ export const createUser = createAsyncThunk(
       const response = await API.post("/auth/users/create", userData);
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Failed to create user");
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to create user"
+      );
     }
   }
 );
@@ -33,12 +34,17 @@ export const createUser = createAsyncThunk(
 // UPDATE
 export const updateUser = createAsyncThunk(
   "user/updateUser",
-  async ({ id, data }: { id: number; data: Partial<User> }, { rejectWithValue }) => {
+  async (
+    { id, data }: { id: number; data: Partial<User> },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await API.put(`/auth/users/${id}`, data);
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Failed to update user");
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update user"
+      );
     }
   }
 );
@@ -51,7 +57,9 @@ export const deleteUser = createAsyncThunk(
       await API.delete(`/auth/users/${id}`);
       return id;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || "Failed to delete user");
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to delete user"
+      );
     }
   }
 );
