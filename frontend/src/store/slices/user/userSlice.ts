@@ -4,6 +4,9 @@ import { fetchUsers, createUser, updateUser, deleteUser } from "./userThunks";
 
 const initialState: UserState = {
   users: [],
+  total: 0,
+  page: 1,
+  limit: 10,
   loading: false,
   error: null,
 };
@@ -20,8 +23,14 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.users = action.payload.users;
         state.loading = false;
-        state.users = action.payload;
+        state.error = null;
+        state.total = action.payload.total;
+        state.page = action.payload.currentPage;
+        state.limit = action.payload.limit;
+
+        console.log(action.payload);
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
@@ -36,7 +45,7 @@ const userSlice = createSlice({
       // Update User
       .addCase(updateUser.fulfilled, (state, action) => {
         const updated = action.payload;
-        const index = state.users.findIndex((user) => user.id === updated.id);
+        const index = state.users.findIndex((user) => String(user._id) === String(updated._id));
         if (index !== -1) {
           state.users[index] = updated;
         }
@@ -44,7 +53,9 @@ const userSlice = createSlice({
 
       // Delete User
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.users = state.users.filter((user) => user.id !== action.payload);
+        state.users = state.users.filter(
+          (user) => String(user._id) !== String(action.payload)
+        );
       });
   },
 });

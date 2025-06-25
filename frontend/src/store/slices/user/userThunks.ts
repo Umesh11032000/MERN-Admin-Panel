@@ -4,10 +4,13 @@ import API from "@/api/axios";
 // FETCH ALL
 export const fetchUsers = createAsyncThunk(
   "user/fetchUsers",
-  async (_, { rejectWithValue }) => {
+  async ({ page, limit }: { page: number; limit: number }, { rejectWithValue }) => {
     try {
-      const response = await API.post("/auth/users");
-      return response.data.data.users as User[];
+      const response = await API.post("/auth/users", {
+        page,
+        limit,
+      });
+      return response.data.data;
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch users"

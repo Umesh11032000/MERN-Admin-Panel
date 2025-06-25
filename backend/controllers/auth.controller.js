@@ -29,7 +29,7 @@ export const signIn = async (req, res, next) => {
       session.endSession()
       return res.status(401).json({
         success: false,
-        message: 'Invalid credentials',
+        message: 'Invalid credentials'
       })
     }
 
@@ -131,14 +131,27 @@ export const me = async (req, res, next) => {
 
 export const allUsers = async (req, res, next) => {
   try {
-    // Get all users
-    const users = await User.find().select('-password')
+    let { page, limit } = req.body
+    page = Number(page) || 1
+    limit = Number(limit) || 10
+
+    const startIndex = (page - 1) * limit
+    const total = await User.countDocuments()
+
+    const users = await User.find()
+      .sort({ createdAt: -1 })
+      .skip(startIndex)
+      .limit(limit)
 
     res.status(200).json({
       success: true,
-      message: 'All users fetched successfully',
+      message: 'Users fetched successfully',
       data: {
-        users
+        users,
+        currentPage: Number(page),
+        totalPages: Math.ceil(total / limit),
+        total,
+        limit: Number(limit)
       }
     })
   } catch (error) {
