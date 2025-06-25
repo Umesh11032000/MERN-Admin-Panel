@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { columns } from "./columns"
-import { DataTable } from "./data-table"
+import { columns } from "../../ui/datatable/columns"
+import { DataTable } from "../../ui/datatable/data-table"
 import type { AppDispatch } from "@/store";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "@/features/user/userSlice";
+import { fetchUsers } from "@/store/slices/user/userThunks";
 
 export default function UsersDataTable() {
   const [data, setData] = useState<any[]>([]);
@@ -55,8 +55,6 @@ export default function UsersDataTable() {
   }
 
   return (
-    <div className="container mx-auto py-10">
       <DataTable columns={columns} data={data} />
-    </div>
   );
 }

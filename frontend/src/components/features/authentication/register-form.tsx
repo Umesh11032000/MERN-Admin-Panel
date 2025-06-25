@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import type { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { registerToSystem } from "@/features/authentication/authSlice";
+import { registerToSystem } from "@/store/slices/auth/authSlice";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 

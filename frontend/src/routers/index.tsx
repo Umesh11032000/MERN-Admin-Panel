@@ -1,11 +1,11 @@
-import Layout from "./components/layout";
+import Layout from "@/components/layout";
 import { Navigate, useRoutes } from "react-router-dom";
-import Home from "./pages/Home";
-import Users from "./pages/Users";
-import Login from "./features/authentication/login";
+import Login from "@/features/authentication/login/page";
 import { useSelector } from "react-redux";
-import type { RootState } from "./store";
-import Register from "./features/authentication/register";
+import type { RootState } from "@/store";
+import Register from "@/features/authentication/register/page";
+import Home from "@/features/admin/home/page";
+import Users from "@/features/admin/user/page";
 
 const privateRoutes = [
   {
