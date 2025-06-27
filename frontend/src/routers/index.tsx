@@ -8,6 +8,9 @@ import Home from "@/features/admin/home/page";
 import Users from "@/features/admin/user/page";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import EditUser from "@/features/admin/user/edit";
+import ViewUser from "@/features/admin/user/view";
+import CreateUser from "@/features/admin/user/create";
 
 const privateRoutes = [
   {
@@ -19,10 +22,24 @@ const privateRoutes = [
         path: "/home",
         element: <Home />,
       },
+      // Add User
+      {
+        title: "Add User",
+        path: "/users/create",
+        element: <CreateUser />,
+      },
       {
         title: "Users",
         path: "/users",
         element: <Users />,
+      },
+      {
+        path: "/users/:id",
+        element: <ViewUser />,
+      },
+      {
+        path: "/users/:id/edit",
+        element: <EditUser />,
       },
     ],
   },

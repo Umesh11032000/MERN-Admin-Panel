@@ -128,37 +128,3 @@ export const me = async (req, res, next) => {
     })
   }
 }
-
-export const allUsers = async (req, res, next) => {
-  try {
-    let { page, limit } = req.body
-    page = Number(page) || 1
-    limit = Number(limit) || 10
-
-    const startIndex = (page - 1) * limit
-    const total = await User.countDocuments()
-
-    const users = await User.find()
-      .sort({ createdAt: -1 })
-      .skip(startIndex)
-      .limit(limit)
-
-    res.status(200).json({
-      success: true,
-      message: 'Users fetched successfully',
-      data: {
-        users,
-        currentPage: Number(page),
-        totalPages: Math.ceil(total / limit),
-        total,
-        limit: Number(limit)
-      }
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({
-      success: false,
-      message: 'Server error'
-    })
-  }
-}

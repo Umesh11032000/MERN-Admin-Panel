@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import productRouter from './routes/product.routes.js'
 import path from 'path'
+import userRouter from './routes/user.routes.js'
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/products', productRouter)
+app.use('/api/v1/users', userRouter)
 
 app.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT}`)

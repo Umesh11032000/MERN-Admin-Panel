@@ -4,11 +4,17 @@ import API from "@/api/axios";
 // FETCH ALL
 export const fetchUsers = createAsyncThunk(
   "user/fetchUsers",
-  async ({ page, limit }: { page: number; limit: number }, { rejectWithValue }) => {
+  async (
+    { page, limit, search }: { page: number; limit: number; search: string },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await API.post("/auth/users", {
-        page,
-        limit,
+      const response = await API.get("/users", {
+        params: {
+          page,
+          limit,
+          search,
+        },
       });
       return response.data.data;
     } catch (error: any) {
@@ -24,7 +30,7 @@ export const createUser = createAsyncThunk(
   "user/createUser",
   async (userData: Partial<User>, { rejectWithValue }) => {
     try {
-      const response = await API.post("/auth/users/create", userData);
+      const response = await API.post("/users", userData);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
@@ -38,11 +44,11 @@ export const createUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (
-    { id, data }: { id: number; data: Partial<User> },
+    { id, data }: { id: string; data: Partial<User> },
     { rejectWithValue }
   ) => {
     try {
-      const response = await API.put(`/auth/users/${id}`, data);
+      const response = await API.put(`/users/${id}`, data);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
@@ -55,13 +61,28 @@ export const updateUser = createAsyncThunk(
 // DELETE
 export const deleteUser = createAsyncThunk(
   "user/deleteUser",
-  async (id: number, { rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     try {
-      await API.delete(`/auth/users/${id}`);
-      return id;
+      const response = await API.delete(`/users/${id}`);
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to delete user"
+      );
+    }
+  }
+);
+
+// FETCH SINGLE USER BY ID
+export const fetchUserById = createAsyncThunk(
+  "user/fetchUserById",
+  async (id: string | number, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`/users/${id}`);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch user"
       );
     }
   }
