@@ -9,7 +9,6 @@ export default function Users() {
       <div className="flex items-center justify-end p-4 gap-2">
         <Link to="/users/create">
           <Button
-            variant="outline"
             size="sm"
             className="w-24 flex items-center gap-2 cursor-pointer"
           >
