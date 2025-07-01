@@ -80,24 +80,27 @@ export const deleteUser = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    let { page, limit, search } = req.query
+    let { page, limit, search, excludeIds } = req.query
     page = Number(page) || 1
     limit = Number(limit) || 10
     search = search || ''
 
     const startIndex = (page - 1) * limit
+
     const total = await User.countDocuments({
       $or: [
         { name: { $regex: search, $options: 'i' } },
         { email: { $regex: search, $options: 'i' } }
-      ]
+      ],
+      _id: { $nin: excludeIds }
     })
 
     const users = await User.find({
       $or: [
         { name: { $regex: search, $options: 'i' } },
         { email: { $regex: search, $options: 'i' } }
-      ]
+      ],
+      _id: { $nin: excludeIds }
     })
       .sort({ createdAt: -1 })
       .skip(startIndex)
