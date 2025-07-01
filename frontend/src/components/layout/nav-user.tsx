@@ -46,7 +46,7 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src="/user.png" alt={user.name} />
-                <AvatarFallback className="rounded-lg">
+                <AvatarFallback className="rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   {user.name
                     .split(" ")
                     .map((name: any[]) => name[0])

@@ -6,9 +6,9 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import type { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { loginToSystem } from "@/store/slices/auth/authSlice";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { loginToSystem } from "@/store/slices/auth/authThunks";
 
 export function LoginForm({
   className,

@@ -6,9 +6,9 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import type { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { registerToSystem } from "@/store/slices/auth/authSlice";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { registerToSystem } from "@/store/slices/auth/authThunks";
 
 export default function RegisterForm({
   className,
@@ -110,7 +110,7 @@ export default function RegisterForm({
               <Button type="submit" className="w-full">
                 {loading ? "Registering..." : "Register"}
               </Button>
-              
+
               <div className="text-center text-sm">
                 Already have an account ? &nbsp;
                 <Link to="/login" className="underline underline-offset-4">

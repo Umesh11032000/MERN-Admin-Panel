@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { EyeIcon, PencilLine, Trash2Icon } from "lucide-react";
 import { deleteUser } from "@/store/slices/user/userThunks";
 import { toast } from "sonner";
+import { selectUser } from "@/store/slices/auth/authSelectors";
 
 export default function UsersDataTable() {
   const dispatch: AppDispatch = useDispatch();
@@ -26,6 +27,7 @@ export default function UsersDataTable() {
   const total = useSelector((state: any) => state.user.total);
   const limit = useSelector((state: any) => state.user.limit);
   const page = useSelector((state: any) => state.user.page);
+  const authUser = useSelector(selectUser);
 
   const [currentPage, setCurrentPage] = useState(page);
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,19 +36,30 @@ export default function UsersDataTable() {
 
   // Fetch data when page or search query changes
   useEffect(() => {
-    dispatch(fetchUsers({ page: currentPage, limit, search: searchQuery }));
+    dispatch(
+      fetchUsers({
+        page: currentPage,
+        limit,
+        search: searchQuery,
+        excludeIds: authUser?._id ? [authUser._id] : [],
+      })
+    );
 
     if (error) {
       toast.error(error);
     }
 
-    console.log("success", success);
-
     if (success) {
       toast.success(success || "Users fetched successfully");
-      dispatch(fetchUsers({ page: currentPage, limit, search: searchQuery }));
+      dispatch(
+        fetchUsers({
+          page: currentPage,
+          limit,
+          search: searchQuery,
+          excludeIds: authUser?._id ? [authUser._id] : [],
+        })
+      );
     }
-
   }, [currentPage, limit, searchQuery, dispatch, success, error]);
 
   // Reset page to 1 when search changes
@@ -82,8 +95,9 @@ export default function UsersDataTable() {
             </Link>
             <button
               onClick={() =>
-                window.confirm(`Are you sure you want to delete ${user.name}?`) &&
-                dispatch(deleteUser(String(user._id)))
+                window.confirm(
+                  `Are you sure you want to delete ${user.name}?`
+                ) && dispatch(deleteUser(String(user._id)))
               }
               className="text-red-600 hover:underline"
             >

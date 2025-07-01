@@ -1,14 +1,6 @@
-import API from "@/api/axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-interface AuthState {
-  isAuthenticated: boolean;
-  user: any;
-  token: string | null;
-  loading: boolean;
-  error: string | null;
-  success: string | null;
-}
+import { createSlice } from "@reduxjs/toolkit";
+import type { AuthState } from "./authTypes";
+import { loginToSystem, registerToSystem } from "./authThunks";
 
 const initialState: AuthState = {
   isAuthenticated: !!localStorage.getItem("token"),
@@ -18,35 +10,6 @@ const initialState: AuthState = {
   error: null,
   success: null,
 };
-
-export const loginToSystem = createAsyncThunk(
-  "auth/login",
-  async (data: { email: string; password: string }, { rejectWithValue }) => {
-    try {
-      const res = await API.post("/auth/sign-in", data);
-      return res.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response.data.message || "Login failed");
-    }
-  }
-);
-
-export const registerToSystem = createAsyncThunk(
-  "auth/register",
-  async (
-    data: { name: string; email: string; password: string },
-    { rejectWithValue }
-  ) => {
-    try {
-      const res = await API.post("/auth/sign-up", data);
-      return res.data;
-    } catch (err: any) {
-      return rejectWithValue(
-        err.response.data.message || "Registration failed"
-      );
-    }
-  }
-);
 
 const authSlice = createSlice({
   name: "auth",
@@ -93,7 +56,8 @@ const authSlice = createSlice({
         state.token = action.payload.data.token;
         state.isAuthenticated = true;
         state.error = null;
-        state.success = "Registration successful! Welcome " + action.payload.data.user.name;
+        state.success =
+          "Registration successful! Welcome " + action.payload.data.user.name;
         localStorage.setItem("token", action.payload.data.token);
         localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })

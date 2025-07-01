@@ -5,7 +5,12 @@ import API from "@/api/axios";
 export const fetchUsers = createAsyncThunk(
   "user/fetchUsers",
   async (
-    { page, limit, search }: { page: number; limit: number; search: string },
+    {
+      page,
+      limit,
+      search,
+      excludeIds = [],
+    }: { page: number; limit: number; search: string; excludeIds?: string[] },
     { rejectWithValue }
   ) => {
     try {
@@ -14,6 +19,7 @@ export const fetchUsers = createAsyncThunk(
           page,
           limit,
           search,
+          excludeIds,
         },
       });
       return response.data.data;
