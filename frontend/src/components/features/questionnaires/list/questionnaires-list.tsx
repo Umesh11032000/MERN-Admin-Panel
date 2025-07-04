@@ -13,6 +13,8 @@ import {
 } from "@/store/slices/questionnaire/questionnaireSelectors";
 import { DataTable } from "@/components/ui/datatable/data-table";
 import { columns } from "../../questionnaires/list/columns";
+import { Link } from "react-router-dom";
+import { EyeIcon } from "lucide-react";
 
 export default function QuestionnairesDataTable() {
   const dispatch: AppDispatch = useDispatch();
@@ -75,7 +77,14 @@ export default function QuestionnairesDataTable() {
         onPageChange={setCurrentPage}
         onSearch={handleSearch}
         renderRowActions={(row) => (
-          <div className="flex justify-end gap-2">Row #{row._id}</div>
+          <div className="flex justify-end gap-2">
+            <Link
+              to={`/questionnaires/${row._id}`}
+              className="text-blue-600 hover:underline"
+            >
+              <EyeIcon className="h-4 w-4" />
+            </Link>
+          </div>
         )}
       />
     </>
