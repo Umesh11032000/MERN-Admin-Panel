@@ -25,7 +25,8 @@ import {
   GripVerticalIcon,
   Trash2Icon,
   PlusIcon,
-  SplinePointer,
+  SaveIcon,
+  Loader2,
 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -281,8 +282,7 @@ export default function CreateQuestionnaire() {
     }
 
     if (success) {
-      toast.success(success || "User created successfully");
-      navigate("/users");
+      navigate("/questionnaires");
     }
   }, [error, success]);
 
@@ -402,8 +402,13 @@ export default function CreateQuestionnaire() {
                 >
                   <PlusIcon className="h-4 w-4 mr-1" /> Add Question
                 </Button>
-                <Button type="submit">
-                  {isLoading ? <SplinePointer /> : "Create Questionnaire"}
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <SaveIcon className="h-4 w-4 mr-1" />
+                  )}{" "}
+                  Save
                 </Button>
               </div>
             </form>

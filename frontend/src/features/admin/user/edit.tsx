@@ -31,6 +31,7 @@ import {
   selectUserSuccess,
 } from "@/store/slices/user/userSelectors";
 import { useNavigate, useParams } from "react-router-dom";
+import { Loader2, SaveIcon } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -65,7 +66,6 @@ export default function EditUser() {
       dispatch(fetchUserById(id));
 
       if (success) {
-        toast.success(success || "User updated successfully");
         navigate("/users");
       }
     }
@@ -162,9 +162,16 @@ export default function EditUser() {
               )}
             />
 
-            <Button type="submit">
-              {isLoading ? "Updating..." : "Update User"}
-            </Button>
+            <div className="flex justify-end">
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <SaveIcon className="h-4 w-4 mr-1" />
+                )}{" "}
+                Update
+              </Button>
+            </div>
           </form>
         </Form>
       </div>

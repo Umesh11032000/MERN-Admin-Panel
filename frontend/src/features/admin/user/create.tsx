@@ -31,12 +31,13 @@ import {
   selectUserSuccess,
 } from "@/store/slices/user/userSelectors";
 import { useNavigate } from "react-router-dom";
+import { Loader2, SaveIcon } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1),
   email: z.string(),
   password: z.string().min(1),
-  role: z.string().refine((value => ["admin", "employee"].includes(value)), {
+  role: z.string().refine((value) => ["admin", "employee"].includes(value), {
     message: "Role must be either 'admin' or 'employee'",
   }),
 });
@@ -65,10 +66,9 @@ export default function CreateUser() {
     }
 
     if (success) {
-      toast.success(success || "User created successfully");
       navigate("/users");
     }
-  }, []);
+  }, [error, success]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -158,13 +158,19 @@ export default function CreateUser() {
               )}
             />
 
-            <Button type="submit">
-              {isLoading ? "Creating..." : "Create User"}
-            </Button>
+            <div className="flex justify-end">
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <SaveIcon className="h-4 w-4 mr-1" />
+                )}{" "}
+                Save
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
     </div>
   );
 }
-
