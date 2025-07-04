@@ -7,6 +7,9 @@ import {
 
 const initialState: QuestionnaireState = {
   questionnaires: [],
+  total: 0,
+  page: 1,
+  limit: 10,
   loading: false,
   error: null,
   success: null,

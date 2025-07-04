@@ -33,6 +33,7 @@ export default function QuestionnairesDataTable() {
 
   // Fetch data when page or search query changes
   useEffect(() => {
+    console.log(currentPage, limit, searchQuery);
     if (!error) {
       dispatch(
         fetchQuestionnaires({
