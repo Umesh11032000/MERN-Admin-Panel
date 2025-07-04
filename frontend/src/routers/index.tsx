@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import EditUser from "@/features/admin/user/edit";
 import ViewUser from "@/features/admin/user/view";
 import CreateUser from "@/features/admin/user/create";
+import CreateQuestionnaire from "@/features/admin/questionnaire/create";
+import Questionnaire from "@/features/admin/questionnaire/page";
 
 const privateRoutes = [
   {
@@ -39,6 +41,25 @@ const privateRoutes = [
       },
       {
         path: "/users/:id/edit",
+        element: <EditUser />,
+      },
+      // Create questionnaire
+      {
+        title: "Create Questionnaire",
+        path: "/questionnaires/create",
+        element: <CreateQuestionnaire />,
+      },
+      {
+        title: "Questionnaires",
+        path: "/questionnaires",
+        element: <Questionnaire />,
+      },
+      {
+        path: "/questionnaires/:id",
+        element: <ViewUser />,
+      },
+      {
+        path: "/questionnaires/:id/edit",
         element: <EditUser />,
       },
     ],

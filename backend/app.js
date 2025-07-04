@@ -4,9 +4,12 @@ import authRouter from './routes/auth.routes.js'
 import { connectToMongoDB } from './database/mongodb.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import productRouter from './routes/product.routes.js'
 import path from 'path'
 import userRouter from './routes/user.routes.js'
+import questionnaireRoutes from './routes/questionnaire.routes.js';
+// import questionRoutes from './routes/question.routes.js';
+// import optionRoutes from './routes/option.routes.js';
+// import responseRoutes from './routes/response.routes.js';
 
 const app = express()
 
@@ -24,9 +27,16 @@ app.use(cookieParser())
 app.get('/', (req, res) => {
   res.send('Welcome to the API')
 })
+
+// AUTH
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/products', productRouter)
 app.use('/api/v1/users', userRouter)
+
+// Questionnaires
+app.use('/api/v1/questionnaires', questionnaireRoutes);
+// app.use('/api/v1/questions', questionRoutes);
+// app.use('/api/v1/options', optionRoutes);
+// app.use('/api/v1/responses', responseRoutes);
 
 app.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT}`)

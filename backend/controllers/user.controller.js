@@ -1,14 +1,10 @@
 import User from '../models/user.model.js'
-import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET, JWT_EXPIRATION } from '../config/env.js'
 
 export const createUser = async (req, res) => {
   try {
-    // Throw an error
-    // throw new Error('Test error')
-
     const { name, email, password, role } = req.body
 
     // Check if user already exists

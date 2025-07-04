@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useLocation } from "react-router-dom";
-import { LayoutDashboard, User, UsersRound } from "lucide-react";
+import { FileQuestionMark, LayoutDashboard, UsersRound } from "lucide-react";
 
 import { NavMain } from "@/components/layout/nav-main";
 import { NavUser } from "@/components/layout/nav-user";
@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 
 // Navigation configuration
 const getNavItems = (currentPath: string) => ({
@@ -42,6 +42,19 @@ const getNavItems = (currentPath: string) => ({
           title: "All Users",
           url: "/users",
           isActive: currentPath === "/users",
+        },
+      ],
+    },
+    {
+      title: "Questionnaires",
+      url: "#",
+      icon: FileQuestionMark,
+      isActive: currentPath.startsWith("/questionnaires"),
+      items: [
+        {
+          title: "All Questionnaires",
+          url: "/questionnaires",
+          isActive: currentPath === "/questionnaires",
         },
       ],
     },

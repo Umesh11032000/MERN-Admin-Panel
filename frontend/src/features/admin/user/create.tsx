@@ -68,7 +68,7 @@ export default function CreateUser() {
       toast.success(success || "User created successfully");
       navigate("/users");
     }
-  }, [error, success]);
+  }, []);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {

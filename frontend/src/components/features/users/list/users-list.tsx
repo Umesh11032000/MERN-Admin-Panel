@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { columns } from "../../ui/datatable/columns";
-import { DataTable } from "../../ui/datatable/data-table";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "@/store";
 import { fetchUsers } from "@/store/slices/user/userThunks";
@@ -17,6 +15,8 @@ import { EyeIcon, PencilLine, Trash2Icon } from "lucide-react";
 import { deleteUser } from "@/store/slices/user/userThunks";
 import { toast } from "sonner";
 import { selectUser } from "@/store/slices/auth/authSelectors";
+import { DataTable } from "@/components/ui/datatable/data-table";
+import { columns } from "../../users/list/columns";
 
 export default function UsersDataTable() {
   const dispatch: AppDispatch = useDispatch();
@@ -36,21 +36,7 @@ export default function UsersDataTable() {
 
   // Fetch data when page or search query changes
   useEffect(() => {
-    dispatch(
-      fetchUsers({
-        page: currentPage,
-        limit,
-        search: searchQuery,
-        excludeIds: authUser?._id ? [authUser._id] : [],
-      })
-    );
-
-    if (error) {
-      toast.error(error);
-    }
-
-    if (success) {
-      toast.success(success || "Users fetched successfully");
+    if (!error) {
       dispatch(
         fetchUsers({
           page: currentPage,
@@ -59,8 +45,25 @@ export default function UsersDataTable() {
           excludeIds: authUser?._id ? [authUser._id] : [],
         })
       );
+
+      if (success) {
+        toast.success(success || "Users fetched successfully");
+        dispatch(
+          fetchUsers({
+            page: currentPage,
+            limit,
+            search: searchQuery,
+            excludeIds: authUser?._id ? [authUser._id] : [],
+          })
+        );
+      }
     }
-  }, [currentPage, limit, searchQuery, dispatch, success, error]);
+
+    if (error) {
+      toast.error(error);
+    }
+    
+  }, [currentPage, limit, searchQuery, error, success]);
 
   // Reset page to 1 when search changes
   const handleSearch = (query: string) => {
