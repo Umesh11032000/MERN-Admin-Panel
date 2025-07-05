@@ -13,6 +13,7 @@ import ViewUser from "@/features/admin/user/view";
 import CreateUser from "@/features/admin/user/create";
 import CreateQuestionnaire from "@/features/admin/questionnaire/create";
 import Questionnaire from "@/features/admin/questionnaire/page";
+import LandingPage from "@/features/landing/page";
 
 const privateRoutes = [
   {
@@ -72,6 +73,10 @@ const privateRoutes = [
 
 const publicRoutes = [
   {
+    path: "/",
+    element: <LandingPage />,
+  },
+  {
     path: "/login",
     element: <Login />,
   },
@@ -79,7 +84,7 @@ const publicRoutes = [
     path: "/register",
     element: <Register />,
   },
-  { path: "*", element: <Navigate to="/login" replace /> },
+  { path: "*", element: <Navigate to="/" replace /> },
 ];
 
 export const RoutesApp = () => {
