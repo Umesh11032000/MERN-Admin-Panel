@@ -1,41 +1,65 @@
-# MERN Stack Admin Panel
+# Questionnaire System
 
-A full-featured admin panel built with the MERN stack (MongoDB, Express.js, React.js, Node.js) for managing inventory and user permissions.
+A modern, full-stack questionnaire and survey management platform built with React, Node.js, and MongoDB. Create, distribute, and analyze surveys with an intuitive interface and powerful analytics.
 
-## Features
+## ✨ Features
 
-- 🔐 User authentication & authorization
-- 📊 Dashboard with analytics
-- 👥 User management
-- 📦 Product/Inventory management
-- 🏷️ Category management
-- 📈 Sales & Order tracking
-- 📱 Responsive design
-- 🌙 Dark/Light mode
+### 🎯 Core Functionality
+- **Survey Creation**: Drag-and-drop interface for building professional questionnaires
+- **Response Collection**: Multiple distribution methods (email, link, embed)
+- **Real-time Analytics**: Live insights and data visualization
+- **User Management**: Role-based access control and team collaboration
 
-## Tech Stack
+### 🎨 Modern Design
+- **Responsive UI**: Beautiful, mobile-first design with Tailwind CSS
+- **Dark/Light Mode**: Seamless theme switching
+- **Smooth Animations**: Engaging micro-interactions and transitions
+- **Component-Based**: Modular, reusable UI components
 
-- **Frontend**: React.js, Redux Toolkit, Material-UI, React Router
-- **Backend**: Node.js, Express.js, MongoDB, Mongoose
-- **Authentication**: JWT (JSON Web Tokens)
-- **Styling**: CSS Modules, Material-UI
-- **Build Tools**: Webpack, Babel
+### 🔐 Security & Performance
+- **JWT Authentication**: Secure user sessions
+- **Role-Based Access**: Admin and user permissions
+- **Data Encryption**: Enterprise-grade security
+- **High Performance**: Optimized for speed and scalability
 
-## Prerequisites
+## 🛠️ Tech Stack
 
-- Node.js (v14 or higher)
+### Frontend
+- **React 19** with TypeScript
+- **Redux Toolkit** for state management
+- **Tailwind CSS** for styling
+- **shadcn/ui** for UI components
+- **React Router** for navigation
+- **Lucide React** for icons
+
+### Backend
+- **Node.js** with Express.js
+- **MongoDB** with Mongoose ODM
+- **JWT** for authentication
+- **RESTful API** design
+- **CORS** enabled
+
+### Development Tools
+- **Vite** for fast development
+- **ESLint** for code quality
+- **TypeScript** for type safety
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
 - npm or yarn
 - MongoDB Atlas account or local MongoDB installation
 
-## Getting Started
+### Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Umesh11032000/MERN-Admin-Panel.git
-   cd MERN-Admin-Panel
+   git clone <repository-url>
+   cd inventory-management
    ```
 
-2. Install dependencies for both frontend and backend:
+2. **Install dependencies:**
    ```bash
    # Install backend dependencies
    cd backend
@@ -46,33 +70,103 @@ A full-featured admin panel built with the MERN stack (MongoDB, Express.js, Reac
    npm install
    ```
 
-3. Set up environment variables:
-   - Create a `.env.development.local` file in the `backend` directory
-   - Add your MongoDB connection string and JWT secret:
-     ```
-    PORT=5000
-    NODE_ENV='development'
-    DB_URL='mongodb://localhost:27017/inventory'
+3. **Set up environment variables:**
+   
+   Create a `.env.development.local` file in the `backend` directory:
+   ```env
+   PORT=5000
+   NODE_ENV=development
+   DB_URL=mongodb://localhost:27017/questionnaire-system
+   JWT_SECRET=your-secret-key
+   JWT_EXPIRATION=1d
+   ```
 
-    JWT_SECRET='secret'
-    JWT_EXPIRATION='1d'
-     ```
-
-4. Start the development servers:
+4. **Start the development servers:**
    ```bash
    # From root directory
-   # Start both frontend and backend
    npm run dev
    ```
 
-5. Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
+5. **Open your browser:**
+   Navigate to [http://localhost:5173](http://localhost:5173)
 
-## Available Scripts
+## 📁 Project Structure
 
-In the project directory, you can run:
+```
+inventory-management/
+├── frontend/                 # React frontend application
+│   ├── src/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── features/        # Feature-based components
+│   │   │   ├── landing/     # Landing page components
+│   │   │   ├── admin/       # Admin dashboard
+│   │   │   └── auth/        # Authentication
+│   │   ├── store/           # Redux store and slices
+│   │   ├── api/             # API configuration
+│   │   └── types/           # TypeScript type definitions
+│   └── public/              # Static assets
+├── backend/                  # Node.js backend API
+│   ├── controllers/         # Route controllers
+│   ├── models/              # MongoDB models
+│   ├── routes/              # API routes
+│   ├── middleware/          # Custom middleware
+│   └── config/              # Configuration files
+└── README.md               # This file
+```
 
+## 🎯 Available Scripts
+
+### Root Directory
 - `npm run dev` - Start both frontend and backend in development mode
 
-## Contributing
+### Frontend (`cd frontend`)
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Backend (`cd backend`)
+- `npm run dev` - Start development server
+- `npm start` - Start production server
+
+## 🌟 Key Features
+
+### Landing Page
+- **Modern Design**: Beautiful, animated landing page
+- **Responsive Layout**: Works perfectly on all devices
+- **Smooth Animations**: Engaging user experience
+- **Clear CTAs**: Easy navigation to sign up/login
+
+### Admin Dashboard
+- **User Management**: Create, edit, and manage users
+- **Questionnaire Builder**: Create and manage surveys
+- **Analytics**: View response data and insights
+- **Role Management**: Admin and user permissions
+
+### Survey System
+- **Multiple Question Types**: Text, multiple choice, rating scales
+- **Response Collection**: Real-time data gathering
+- **Export Options**: Download results in various formats
+- **Analytics Dashboard**: Visualize survey responses
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+If you encounter any issues or have questions, please:
+1. Check the [Issues](https://github.com/your-repo/issues) page
+2. Create a new issue with detailed information
+3. Contact the development team
+
+---
+
+**Built with ❤️ using modern web technologies**

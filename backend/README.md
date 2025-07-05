@@ -1,72 +1,184 @@
-# Backend API - MERN Admin Panel
+# Backend API - Questionnaire System
 
-This is the backend server for the MERN Stack Admin Panel, built with Node.js, Express.js, and MongoDB.
+A robust RESTful API for the Questionnaire System built with Node.js, Express.js, and MongoDB. Provides secure authentication, survey management, and data analytics endpoints.
 
-## Features
+## ✨ Features
 
-- RESTful API design
-- JWT Authentication & Authorization
-- MongoDB with Mongoose ODM
-- Error handling middleware
-- Request validation
-- Rate limiting
-- CORS enabled
-- Environment configuration
+### 🔐 Authentication & Security
+- **JWT Authentication**: Secure token-based authentication
+- **Role-Based Access**: Admin and user permission levels
+- **Password Hashing**: Secure password storage with bcrypt
+- **CORS Support**: Cross-origin resource sharing enabled
+- **Request Validation**: Input validation and sanitization
 
-## API Endpoints
+### 📊 Survey Management
+- **Questionnaire CRUD**: Create, read, update, delete surveys
+- **Question Types**: Multiple choice, text, rating scales
+- **Response Collection**: Store and manage survey responses
+- **Analytics**: Response analysis and insights
 
-### Authentication
+### 👥 User Management
+- **User Registration**: Secure account creation
+- **Profile Management**: Update user information
+- **Role Management**: Admin and user roles
+- **User Analytics**: Track user activity and engagement
 
-- `POST /api/v1/auth/login` - Login user
-- `GET /api/v1/auth/me` - Get current user
+### 🚀 Performance & Reliability
+- **MongoDB Integration**: Scalable NoSQL database
+- **Error Handling**: Comprehensive error management
+- **Rate Limiting**: API request throttling
+- **Logging**: Request and error logging
 
-### Users
+## 🛠️ Tech Stack
 
-- `GET /api/v1/users` - Get all users (admin only)
-- `GET /api/v1/users/:id` - Get user by ID
-- `PUT /api/v1/users/:id` - Update user
-- `DELETE /api/v1/users/:id` - Delete user (admin only)
+### Core Technologies
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
 
-### Products
+### Authentication & Security
+- **JWT** - JSON Web Tokens for authentication
+- **bcrypt** - Password hashing
+- **CORS** - Cross-origin resource sharing
+- **Helmet** - Security headers
 
-- `GET /api/v1/products` - Get all products
-- `GET /api/v1/products/:id` - Get product by ID
-- `POST /api/v1/products` - Create new product (admin only)
-- `PUT /api/v1/products/:id` - Update product (admin only)
-- `DELETE /api/v1/products/:id` - Delete product (admin only)
+### Development Tools
+- **ESLint** - Code linting
+- **Nodemon** - Development server with auto-restart
+- **Dotenv** - Environment variable management
 
-### Categories
+## 📁 Project Structure
 
-- `GET /api/v1/categories` - Get all categories
-- `POST /api/v1/categories` - Create category (admin only)
-- `DELETE /api/v1/categories/:id` - Delete category (admin only)
+```
+backend/
+├── controllers/          # Route controllers
+│   ├── auth.controller.js
+│   ├── user.controller.js
+│   ├── questionnaire.controller.js
+│   ├── question.controller.js
+│   ├── response.controller.js
+│   └── option.controller.js
+├── models/               # MongoDB models
+│   ├── user.model.js
+│   ├── questionnaire.model.js
+│   ├── question.model.js
+│   ├── user_response.model.js
+│   └── option.model.js
+├── routes/               # API routes
+│   ├── auth.routes.js
+│   ├── user.routes.js
+│   ├── questionnaire.routes.js
+│   ├── question.routes.js
+│   ├── response.routes.js
+│   └── option.routes.js
+├── middleware/           # Custom middleware
+│   └── auth.middleware.js
+├── config/               # Configuration files
+│   └── env.js
+├── database/             # Database configuration
+│   └── mongodb.js
+├── seeders/              # Database seeders
+│   └── admin-seeder.js
+├── app.js                # Express app configuration
+└── package.json          # Dependencies and scripts
+```
 
-## Environment Variables
+## 🚀 Getting Started
 
-Set up environment variables:
+### Prerequisites
+- Node.js (v18 or higher)
+- MongoDB (local or Atlas)
+- npm or yarn
 
-- Create a `.env.development.local` file in the `backend` directory
-- Add your MongoDB connection string and JWT secret:
+### Installation
 
-  ```
-  PORT=5000
-  NODE_ENV='development'
-  DB_URL='mongodb://localhost:27017/inventory'
-  JWT_SECRET='secret'
-  JWT_EXPIRATION='1d'
-  ```
-
-## Installation
-
-1. Install dependencies:
-
+1. **Install dependencies:**
    ```bash
    npm install
    ```
 
-2. Start the development server:
+2. **Set up environment variables:**
+   
+   Create a `.env.development.local` file:
+   ```env
+   PORT=5000
+   NODE_ENV=development
+   DB_URL=mongodb://localhost:27017/questionnaire-system
+   JWT_SECRET=your-super-secret-jwt-key
+   JWT_EXPIRATION=1d
+   ```
 
+3. **Start development server:**
    ```bash
-   # Development
    npm run dev
    ```
+
+4. **Server will be running at:**
+   [http://localhost:5000](http://localhost:5000)
+
+### Available Scripts
+
+- `npm run dev` - Start development server with nodemon
+- `npm start` - Start production server
+- `npm run seed` - Run database seeders
+
+## 🔧 Configuration
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Server port | 5000 |
+| `NODE_ENV` | Environment mode | development |
+| `DB_URL` | MongoDB connection string | - |
+| `JWT_SECRET` | JWT signing secret | - |
+| `JWT_EXPIRATION` | JWT token expiration | 1d |
+
+## 🚨 Error Handling
+
+### Standard Error Response
+```json
+{
+  "success": false,
+  "error": "Error message",
+  "statusCode": 400
+}
+```
+
+### Common Error Codes
+- `400` - Bad Request
+- `401` - Unauthorized
+- `403` - Forbidden
+- `404` - Not Found
+- `500` - Internal Server Error
+
+## 📈 Performance
+
+### Optimization Features
+- **Database Indexing**: Optimized queries with proper indexes
+- **Connection Pooling**: Efficient database connections
+- **Request Validation**: Input sanitization and validation
+- **Error Logging**: Comprehensive error tracking
+
+### Monitoring
+- **Request Logging**: Track API usage and performance
+- **Error Tracking**: Monitor and alert on errors
+- **Database Monitoring**: Query performance analysis
+
+## 🤝 Contributing
+
+1. Follow the existing code structure and patterns
+2. Add proper error handling for new endpoints
+3. Include input validation for all routes
+4. Add appropriate authentication middleware
+5. Update API documentation for new endpoints
+6. Test thoroughly before submitting
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+**Built with Node.js and Express for robust API development**
