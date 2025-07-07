@@ -1,6 +1,3 @@
-// Required dependencies:
-// npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
-
 "use client";
 
 import { useEffect } from "react";

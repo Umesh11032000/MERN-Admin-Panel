@@ -40,3 +40,18 @@ export const fetchQuestionnaires = createAsyncThunk(
     }
   }
 );
+
+// Fetch Questionnaire By Id
+export const fetchQuestionnaireById = createAsyncThunk(
+  "questionnaire/fetchQuestionnaireById",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`/questionnaires/${id}`);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch questionnaire"
+      );
+    }
+  }
+);

@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { QuestionnaireState } from "./questionnaireTypes";
 import {
   createQuestionnaire,
+  fetchQuestionnaireById,
   fetchQuestionnaires,
 } from "./questionnaireThunks";
 
 const initialState: QuestionnaireState = {
   questionnaires: [],
+  questionnaire: null,
   total: 0,
   page: 1,
   limit: 10,
@@ -49,6 +51,23 @@ const questionnaireSlice = createSlice({
         state.success = action.payload.message;
       })
       .addCase(fetchQuestionnaires.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+      // Fetch Questionnaire By Id
+      .addCase(fetchQuestionnaireById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchQuestionnaireById.fulfilled, (state, action) => {
+        console.log(action.payload.data.questionnaire);
+        state.questionnaire = action.payload.data.questionnaire;
+        state.loading = false;
+        state.error = null;
+        state.success = action.payload.message;
+      })
+      .addCase(fetchQuestionnaireById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

@@ -25,13 +25,16 @@ export default function ViewUser() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    if (id) {
+    if (id && !error) {
       dispatch(fetchUserById(id));
+
+      if (success) {
+        navigate("/users");
+      }
     }
-    if (error) toast.error(error);
-    if (success) {
-      toast.success(success || "User updated successfully");
-      navigate("/users");
+
+    if (error) {
+      toast.error(error);
     }
   }, [id, error, success]);
 

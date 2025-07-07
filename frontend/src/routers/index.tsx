@@ -14,6 +14,7 @@ import CreateUser from "@/features/admin/user/create";
 import CreateQuestionnaire from "@/features/admin/questionnaire/create";
 import Questionnaire from "@/features/admin/questionnaire/page";
 import LandingPage from "@/features/landing/page";
+import ViewQuestionnaire from "@/features/admin/questionnaire/view";
 
 const privateRoutes = [
   {
@@ -57,7 +58,7 @@ const privateRoutes = [
       },
       {
         path: "/questionnaires/:id",
-        element: <ViewUser />,
+        element: <ViewQuestionnaire />,
       },
       {
         path: "/questionnaires/:id/edit",

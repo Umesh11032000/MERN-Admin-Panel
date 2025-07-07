@@ -5,9 +5,8 @@ import mongoose from 'mongoose'
 
 export const createQuestionnaire = async (req, res) => {
   try {
-
     // sleep for 3 seconds
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    await new Promise(resolve => setTimeout(resolve, 3000))
 
     const { title, description, questions } = req.body
 
@@ -71,7 +70,7 @@ export const getAllQuestionnaires = async (req, res) => {
       $or: [
         { title: { $regex: search, $options: 'i' } },
         { description: { $regex: search, $options: 'i' } }
-      ],
+      ]
     })
       .sort({ createdAt: -1 })
       .skip(startIndex)
@@ -101,8 +100,10 @@ export const getQuestionnaireById = async (req, res) => {
   try {
     const questionnaireId = new mongoose.Types.ObjectId(req.params.id)
 
-    const questionnaire = await Questionnaire.aggregate([
+    const [questionnaire] = await Questionnaire.aggregate([
       { $match: { _id: questionnaireId } },
+
+      // Lookup questions for this questionnaire
       {
         $lookup: {
           from: 'questions',
@@ -111,7 +112,14 @@ export const getQuestionnaireById = async (req, res) => {
           as: 'questions'
         }
       },
-      { $unwind: { path: '$questions', preserveNullAndEmptyArrays: true } },
+
+      // Lookup options for each question
+      {
+        $unwind: {
+          path: '$questions',
+          preserveNullAndEmptyArrays: true
+        }
+      },
       {
         $lookup: {
           from: 'options',
@@ -120,6 +128,8 @@ export const getQuestionnaireById = async (req, res) => {
           as: 'questions.options'
         }
       },
+
+      // Group questions back into array
       {
         $group: {
           _id: '$_id',
@@ -141,14 +151,21 @@ export const getQuestionnaireById = async (req, res) => {
       })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
-      message: 'Questionnaires fetched successfully',
+      message: 'Questionnaire fetched successfully',
       data: {
         questionnaire
       }
     })
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      success: false,
+      message: 'Server error',
+      error: error.message
+    })
+  }
 }
 
 export const updateQuestionnaire = async (req, res) => {}

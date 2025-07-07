@@ -79,6 +79,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
         state.user = null;
+        state.success = null;
       })
 
       // Update User

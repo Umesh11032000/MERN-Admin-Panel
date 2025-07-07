@@ -12,3 +12,6 @@ export const selectQuestionnaireError = (state: RootState) =>
 
 export const selectQuestionnaireSuccess = (state: RootState) =>
   (state.questionnaire as QuestionnaireState).success;
+
+export const selectQuestionnaire = (state: RootState) =>
+  (state.questionnaire as QuestionnaireState).questionnaire;
